@@ -1,0 +1,3053 @@
+cscope 15 $HOME/LinuxKernel               0000018337
+	@kernel_mode/mini2440_adc.c
+
+1 
+	~<löux/î∫o.h
+>
+
+2 
+	~<löux/kî√l.h
+>
+
+3 
+	~<löux/moduÀ.h
+>
+
+4 
+	~<löux/¶ab.h
+>
+
+5 
+	~<löux/öput.h
+>
+
+6 
+	~<löux/öô.h
+>
+
+7 
+	~<löux/£rio.h
+>
+
+8 
+	~<löux/dñay.h
+>
+
+9 
+	~<löux/˛k.h
+>
+
+10 
+	~<löux/waô.h
+>
+
+11 
+	~<löux/sched.h
+>
+
+12 
+	~<asm/io.h
+>
+
+13 
+	~<asm/úq.h
+>
+
+14 
+	~<asm/uac˚ss.h
+>
+
+15 
+	~<mach/ªgs-˛ock.h
+>
+
+16 
+	~<∂©/ªgs-timî.h
+>
+
+18 
+	~<∂©/ªgs-adc.h
+>
+
+19 
+	~<mach/ªgs-gpio.h
+>
+
+20 
+	~<löux/cdev.h
+>
+
+21 
+	~<löux/miscdevi˚.h
+>
+
+23 
+	~"s3c24xx-adc.h
+"
+
+39 
+waô_queue_hód_t
+ 
+	mwaô
+;
+
+40 
+	mch™√l
+;
+
+41 
+	m¥esˇÀ
+;
+
+42 }
+	tADC_DEV
+;
+
+49 
+	gmaj‹_num
+ = 
+MAJOR_NUMBER
+;
+
+50 
+	gmö‹_num
+ = 0;
+
+52 
+__iomem
+ *
+	gba£_addr
+;
+
+55 
+muãx
+ 
+	gMY_ADC_LOCK
+;
+
+57 
+	gOwnADC
+ = 0;
+
+58 
+ADC_DEV
+ 
+	gadcdev
+;
+
+59 vﬁ©ûê
+	gev_adc
+ = 0;
+
+60 
+	gadc_d©a
+;
+
+62 
+˛k
+ *
+	gadc_˛ock
+;
+
+63 
+cdev
+ 
+	gcdev
+;
+
+64 
+	gúq_ªt
+=-1;
+
+67 
+	#DEVICE_NAME
+ "adc"
+
+	)
+
+69 
+	#ADCCON
+ (*(vﬁ©ûê*)(
+ba£_addr
+ + 
+S3C2410_ADCCON
+))
+
+70 
+	#ADCTSC
+ (*(vﬁ©ûê*)(
+ba£_addr
+ + 
+S3C2410_ADCTSC
+))
+
+71 
+	#ADCDLY
+ (*(vﬁ©ûê*)(
+ba£_addr
+ + 
+S3C2410_ADCDLY
+))
+
+72 
+	#ADCDAT0
+ (*(vﬁ©ûê*)(
+ba£_addr
+ + 
+S3C2410_ADCDAT0
+))
+
+73 
+	#ADCDAT1
+ (*(vﬁ©ûê*)(
+ba£_addr
+ + 
+S3C2410_ADCDAT1
+))
+
+74 
+	#ADCUPDN
+ (*(vﬁ©ûê*)(
+ba£_addr
+ + 0x14))
+
+75 
+
+	)
+
+76 
+	#PRESCALE_DIS
+ (0 << 14)
+
+	)
+
+77 
+	#PRESCALE_EN
+ (1 << 14)
+
+	)
+
+78 
+	#PRSCVL
+(
+x
+Ë((xË<< 6)
+
+	)
+
+79 
+	#ADC_INPUT
+(
+x
+Ë((xË<< 3)
+
+	)
+
+80 
+	#ADC_START
+ (1 << 0)
+
+	)
+
+81 
+	#ADC_ENDCVT
+ (1 << 15)
+
+	)
+
+83 
+	#START_ADC_AIN
+(
+ch
+, 
+¥esˇÀ
+) \
+
+85 
+ADCCON
+ = 
+PRESCALE_EN
+ | 
+	`PRSCVL
+(
+¥esˇÀ
+Ë| 
+	`ADC_INPUT
+((
+ch
+)) ; \
+
+86 
+ADCCON
+ |
+ADC_START
+; \
+
+87 }0)
+
+	)
+
+90 
+MODULE_AUTHOR
+("Benny Cohen");
+
+91 
+MODULE_LICENSE
+("GPL");
+
+95 
+úqªtu∫_t
+ 
+	$adcd⁄e_öt_h™dÀr
+(
+úq
+, *
+dev_id
+)
+
+97 i‡(
+OwnADC
+) {
+
+98 
+adc_d©a
+ = 
+ADCDAT0
+ & 0x3ff;
+
+100 
+ev_adc
+ = 1;
+
+101 
+	`wake_up_öãºu±ibÀ
+(&
+adcdev
+.
+waô
+);
+
+103 
+	`¥ötk
+–
+KERN_WARNING
+ "adcdone_int_handler() INTÅookÖlace\n");
+
+105  
+IRQ_HANDLED
+;
+
+106 
+	}
+}
+
+109 
+ssize_t
+ 
+	$s3c2410_adc_ªad
+(
+fûe
+ *
+fûp
+, *
+buf„r
+, 
+size_t
+ 
+cou¡
+, 
+loff_t
+ *
+µos
+)
+
+111 
+°r
+[20];
+
+112 
+vÆue
+;
+
+113 
+size_t
+ 
+Àn
+;
+
+114 
+r
+;
+
+115 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_read() started\n");
+
+118 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_read() mutexÜocked\n");
+
+119 
+OwnADC
+ = 1;
+
+121 
+	`START_ADC_AIN
+(
+adcdev
+.
+ch™√l
+,ádcdev.
+¥esˇÀ
+);
+
+123 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_read() goingÅo sleep, waiting onÉvent\n");
+
+125 
+	`waô_evít_öãºu±ibÀ
+(
+adcdev
+.
+waô
+, 
+ev_adc
+);
+
+127 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_read() just woke up fromÉvent\n");
+
+136 
+	}
+}
+
+143 
+	$s3c2410_adc_›í
+(
+öode
+ *öode, 
+fûe
+ *
+fûp
+)
+
+145 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_open() started\n");
+
+149 if(-1 ==
+úq_ªt
+)
+
+151 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_open()álloacting irq-request\n");
+
+152 
+úq_ªt
+ = 
+	`ªque°_úq
+(
+IRQ_ADC
+, 
+adcd⁄e_öt_h™dÀr
+, 
+IRQF_SHARED
+, 
+DEVICE_NAME
+, &
+adcdev
+);
+
+153 i‡(
+úq_ªt
+)
+
+155 
+	`iounm≠
+(
+ba£_addr
+);
+
+156 
+	`¥ötk
+–
+KERN_NOTICE
+ "Reque°ög IRQ f‹ ADC faûed irq_ªt=%d\n",
+úq_ªt
+);
+
+157  
+úq_ªt
+;
+
+161 
+	`¥ötk
+–
+KERN_NOTICE
+ "s3c2410_adc_open() ADC opened\n");
+
+163 
+	}
+}
+
+165 
+	$s3c2410_adc_ªÀa£
+(
+öode
+ *öode, 
+fûe
+ *
+fûp
+)
+
+167 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_release() started\n");
+
+169 if(0 ==
+úq_ªt
+)
+
+171 
+	`‰ì_úq
+(
+IRQ_ADC
+, &
+adcdev
+);
+
+172 
+úq_ªt
+=-1;
+
+173 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_release() irq-request de-allocated\n");
+
+175 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_release()ádc closed\n");
+
+177 
+	}
+}
+
+180 
+fûe_›î©i⁄s
+ 
+	gdev_f›s
+ = {
+
+181 
+ow√r
+: 
+THIS_MODULE
+,
+
+182 
+›í
+: 
+s3c2410_adc_›í
+,
+
+183 
+ªad
+: 
+s3c2410_adc_ªad
+,
+
+184 
+ªÀa£
+:
+s3c2410_adc_ªÀa£
+,
+
+190 
+	$£tup_cdev
+()
+
+192 
+îr
+, 
+devno
+ = 
+	`MKDEV
+(
+maj‹_num
+, 
+mö‹_num
+);
+
+194 
+	`cdev_öô
+(&
+cdev
+, &
+dev_f›s
+);
+
+195 
+cdev
+.
+ow√r
+ = 
+THIS_MODULE
+;
+
+196 
+cdev
+.
+›s
+ = &
+dev_f›s
+;
+
+197 
+îr
+ = 
+	`cdev_add
+ (&
+cdev
+, 
+devno
+, 1);
+
+199 i‡(
+îr
+)
+
+200 
+	`¥ötk
+(
+KERN_NOTICE
+ "Eº‹áddög ch¨ devi˚Éº=%d", 
+îr
+);
+
+201 
+	}
+}
+
+205 
+__öô
+ 
+	$dev_öô
+()
+
+207 
+ªsu…
+;
+
+208 
+dev_t
+ 
+dev
+ = 0;
+
+214 i‡(
+maj‹_num
+)
+
+216 
+	`¥ötk
+(
+KERN_WARNING
+ "öô_moduÀ(): maj‹ = %d\n", 
+maj‹_num
+);
+
+217 
+dev
+ = 
+	`MKDEV
+(
+maj‹_num
+, 
+mö‹_num
+);
+
+218 
+ªsu…
+ = 
+	`ªgi°î_chrdev_ªgi⁄
+(
+dev
+, 1, "ADC device");
+
+222 
+	`¥ötk
+(
+KERN_WARNING
+ "öô_moduÀ(): maj‹ = %d\¿d⁄àhavê®maj‹ sÿaskÅhêo.s. f‹ o√\n", 
+maj‹_num
+);
+
+223 
+ªsu…
+ = 
+	`Æloc_chrdev_ªgi⁄
+(&
+dev
+, 
+mö‹_num
+, 1,"ADC device");
+
+224 
+maj‹_num
+ = 
+	`MAJOR
+(
+dev
+);
+
+225 
+	`¥ötk
+(
+KERN_WARNING
+ "öô_moduÀ():Åhêo.s. gavêu†maj‹ = %d\n", 
+maj‹_num
+);
+
+228 i‡(
+ªsu…
+ < 0)
+
+230 
+	`¥ötk
+(
+KERN_WARNING
+ "öô_moduÀ(): REGISTRATION FAILURE %d\n", 
+maj‹_num
+);
+
+231 
+Áû
+;
+
+235 
+ba£_addr
+=
+	`i‹em≠
+(
+S3C2410_PA_ADC
+,0x20);
+
+236 i‡(
+ba£_addr
+ =
+NULL
+) {
+
+237 
+	`¥ötk
+(
+KERN_ERR
+ "FailedÅoÑemapÑegister block\n");
+
+238  -
+ENOMEM
+;
+
+240 
+	`¥ötk
+(
+KERN_WARNING
+ "ª-m≠pögÑegi°î f‹ vútuÆ mem ba£_addr=%pk\n",
+ba£_addr
+);
+
+242 
+adc_˛ock
+ = 
+	`˛k_gë
+(
+NULL
+, "adc");
+
+243 i‡(!
+adc_˛ock
+) {
+
+244 
+	`¥ötk
+(
+KERN_ERR
+ "failedÅo getádc clock source\n");
+
+245  -
+ENOENT
+;
+
+249 
+	`muãx_öô
+(&
+MY_ADC_LOCK
+);
+
+251 
+	`˛k_íabÀ
+(
+adc_˛ock
+);
+
+254 
+ADCTSC
+ = 0;
+
+257 
+	`öô_waôqueue_hód
+(&(
+adcdev
+.
+waô
+));
+
+260 
+adcdev
+.
+ch™√l
+=0;
+
+261 
+adcdev
+.
+¥esˇÀ
+=0xff;
+
+264 
+	`£tup_cdev
+();
+
+266 
+	`¥ötk
+ (
+DEVICE_NAME
+"\tinitialized\n");
+
+269 
+Áû
+:
+
+270 
+	`dev_exô
+();
+
+271  
+ªsu…
+;
+
+272 
+	}
+}
+
+274 
+__exô
+ 
+	$dev_exô
+()
+
+276 
+dev_t
+ 
+devno
+ = 
+	`MKDEV
+(
+maj‹_num
+, 
+mö‹_num
+);
+
+278 
+	`iounm≠
+(
+ba£_addr
+);
+
+280 i‡(
+adc_˛ock
+) {
+
+281 
+	`˛k_dißbÀ
+(
+adc_˛ock
+);
+
+282 
+	`˛k_put
+(
+adc_˛ock
+);
+
+283 
+adc_˛ock
+ = 
+NULL
+;
+
+287 
+	`cdev_dñ
+(&
+cdev
+);
+
+290 
+	`uƒegi°î_chrdev_ªgi⁄
+(
+devno
+, 1);
+
+291 
+	`¥ötk
+(
+KERN_NOTICE
+ "char device unregistered");
+
+292 
+	`¥ötk
+(
+KERN_NOTICE
+ "char device module unloaded");
+
+296 
+	}
+}
+
+298 
+EXPORT_SYMBOL
+(
+MY_ADC_LOCK
+);
+
+299 
+moduÀ_öô
+(
+dev_öô
+);
+
+300 
+moduÀ_exô
+(
+dev_exô
+);
+
+301 
+MODULE_LICENSE
+("GPL");
+
+302 
+MODULE_AUTHOR
+("FriendlyARM Inc.");
+
+	@kernel_mode/s3c24xx-adc.h
+
+1 #i‚de‡
+_S3C2410_ADC_H_
+
+
+2 
+	#_S3C2410_ADC_H_
+
+
+	)
+
+4 #i‚de‡
+MAJOR_NUMBER
+
+
+5 
+	#MAJOR_NUMBER
+ 0
+
+	)
+
+8 
+	#ADC_WRITE
+(
+ch
+, 
+¥esˇÀ
+Ë((ch)<<16|’ªsˇÀ))
+
+	)
+
+10 
+	#ADC_WRITE_GETCH
+(
+d©a
+Ë(((d©a)>>16)&0x7)
+
+	)
+
+11 
+	#ADC_WRITE_GETPRE
+(
+d©a
+Ë((d©a)&0xff)
+
+	)
+
+13 
+__öô
+ 
+dev_öô
+();
+
+14 
+__exô
+ 
+dev_exô
+();
+
+15 
+s3c2410_adc_ªÀa£
+(
+öode
+ *öode, 
+fûe
+ *
+fûp
+);
+
+16 
+s3c2410_adc_›í
+(
+öode
+ *öode, 
+fûe
+ *
+fûp
+);
+
+17 
+ssize_t
+ 
+s3c2410_adc_ªad
+(
+fûe
+ *
+fûp
+, *
+buf„r
+, 
+size_t
+ 
+cou¡
+, 
+loff_t
+ *
+µos
+);
+
+18 
+£tup_cdev
+();
+
+	@lesson-4.1/hello.c
+
+4 
+	~<löux/öô.h
+>
+
+5 
+	~<löux/moduÀ.h
+>
+
+6 
+MODULE_LICENSE
+("Dual BSD/GPL");
+
+8 
+	$hñlo_öô
+()
+
+10 
+	`¥ötk
+(
+KERN_ALERT
+ "hello world \n");
+
+11 
+	`¥ötk
+(
+KERN_ALERT
+ "module is up \n");
+
+13 
+	}
+}
+
+15 
+	$hñlo_exô
+()
+
+17 
+	`¥ötk
+(
+KERN_ALERT
+ "bye bye \n");
+
+18 
+	`¥ötk
+(
+KERN_ALERT
+ "module is down \n");
+
+20 
+	}
+}
+
+22 
+moduÀ_öô
+(
+hñlo_öô
+);
+
+23 
+moduÀ_exô
+(
+hñlo_exô
+);
+
+	@lesson-4.2/hello.c
+
+4 
+	~<löux/öô.h
+>
+
+5 
+	~<löux/moduÀ.h
+>
+
+8 
+	ghowm™y
+=0;
+
+9 *
+	gwhom
+=
+NULL
+;
+
+12 
+MODULE_LICENSE
+("Dual BSD/GPL");
+
+13 
+moduÀ_∑øm
+(
+howm™y
+, , 
+S_IRUGO
+);
+
+14 
+moduÀ_∑øm
+(
+whom
+, 
+ch¨p
+, 
+S_IRUGO
+);
+
+17 
+	$hñlo_öô
+()
+
+19 
+	`¥ötk
+(
+KERN_ALERT
+ "hello world \n");
+
+20 
+	`¥ötk
+(
+KERN_ALERT
+ "module is up \n");
+
+21 
+	`¥ötk
+(
+KERN_ALERT
+ "howm™y=%d \n", 
+howm™y
+);
+
+22 
+	`¥ötk
+(
+KERN_ALERT
+ "whom=%†\n", 
+whom
+);
+
+24 
+	}
+}
+
+26 
+	$hñlo_exô
+()
+
+28 
+	`¥ötk
+(
+KERN_ALERT
+ "bye bye \n");
+
+29 
+	`¥ötk
+(
+KERN_ALERT
+ "module is down \n");
+
+31 
+	}
+}
+
+33 
+moduÀ_öô
+(
+hñlo_öô
+);
+
+34 
+moduÀ_exô
+(
+hñlo_exô
+);
+
+	@lesson-9.2/kernel_mode/mini2440_adc.c
+
+1 
+	~<löux/devi˚.h
+>
+
+2 
+	~<löux/moduÀ.h
+>
+
+3 
+	~<löux/moduÀ∑øm.h
+>
+
+4 
+	~<löux/öô.h
+>
+
+6 
+	~<löux/kî√l.h
+>
+
+7 
+	~<löux/¶ab.h
+>
+
+8 
+	~<löux/fs.h
+>
+
+9 
+	~<löux/î∫o.h
+>
+
+10 
+	~<löux/ty≥s.h
+>
+
+11 
+	~<löux/cdev.h
+>
+
+12 
+	~<löux/sysfs.h
+>
+
+13 
+	~<asm/uac˚ss.h
+>
+
+17 
+	~<löux/£rio.h
+>
+
+18 
+	~<löux/˛k.h
+>
+
+19 
+	~<löux/sched.h
+>
+
+20 
+	~<asm/io.h
+>
+
+21 
+	~<asm/úq.h
+>
+
+22 
+	~<mach/ªgs-˛ock.h
+>
+
+23 
+	~<∂©/ªgs-adc.h
+>
+
+24 
+	~<mach/ªgs-gpio.h
+>
+
+26 
+	~"s3c24xx-adc.h
+"
+
+33 
+waô_queue_hód_t
+ 
+	mwaô
+;
+
+34 
+	mch™√l
+;
+
+35 
+	m¥esˇÀ
+;
+
+36 }
+	tADC_DEV
+;
+
+40 
+	gvútuÆ_cou¡
+[4]={0,0,0,0};
+
+41 
+	gmaj‹_num
+ = -1;
+
+42 
+	gmö‹_num
+ = 0;
+
+46 
+˛ass
+* 
+	gADC_˛ass
+ = 
+NULL
+;
+
+47 
+devi˚
+* 
+	g⁄chù_A2D_devi˚
+ = 
+NULL
+;
+
+50 
+__iomem
+ *
+	gba£_addr
+;
+
+53 
+muãx
+ 
+	gmy_adc_lock
+;
+
+56 
+DEFINE_SPINLOCK
+ (
+my_adc_•ölock
+);
+
+58 
+	gOwnADC
+ = 0;
+
+59 
+ADC_DEV
+ 
+	gadcdev
+;
+
+60 vﬁ©ûê
+	gev_adc
+ = 0;
+
+61 
+	gadc_d©a
+;
+
+63 
+˛k
+ *
+	gadc_˛ock
+;
+
+64 
+cdev
+ 
+	gcdev
+;
+
+65 
+	gúq_cou¡
+ = 0;
+
+68 
+	#DEVICE_NAME
+ "⁄chù_A2D"
+
+	)
+
+69 
+	#CLASS_NAME
+ "ADC"
+
+	)
+
+72 
+	#dbg
+(
+f‹m©
+, 
+¨g
+...Ëdÿ{ i‡(
+debug
+Ë
+	`¥_öfo
+(
+CLASS_NAME
+ ": %s: " f‹m©, 
+__FUNCTION__
+, ##árg); } 0)
+
+	)
+
+73 
+	#îr
+(
+f‹m©
+, 
+¨g
+...Ë
+	`¥_îr
+(
+CLASS_NAME
+ ": " f‹m©, ##árg)
+
+	)
+
+74 
+	#öfo
+(
+f‹m©
+, 
+¨g
+...Ë
+	`¥_öfo
+(
+CLASS_NAME
+ ": " f‹m©, ##árg)
+
+	)
+
+75 
+	#w¨n
+(
+f‹m©
+, 
+¨g
+...Ë
+	`¥_w¨n
+(
+CLASS_NAME
+ ": " f‹m©, ##árg)
+
+	)
+
+78 
+	#ADCCON
+ (*(vﬁ©ûê*)(
+ba£_addr
+ + 
+S3C2410_ADCCON
+))
+
+79 
+	#ADCTSC
+ (*(vﬁ©ûê*)(
+ba£_addr
+ + 
+S3C2410_ADCTSC
+))
+
+80 
+	#ADCDLY
+ (*(vﬁ©ûê*)(
+ba£_addr
+ + 
+S3C2410_ADCDLY
+))
+
+81 
+	#ADCDAT0
+ (*(vﬁ©ûê*)(
+ba£_addr
+ + 
+S3C2410_ADCDAT0
+))
+
+82 
+	#ADCDAT1
+ (*(vﬁ©ûê*)(
+ba£_addr
+ + 
+S3C2410_ADCDAT1
+))
+
+83 
+	#ADCUPDN
+ (*(vﬁ©ûê*)(
+ba£_addr
+ + 0x14))
+
+84 
+
+	)
+
+85 
+	#PRESCALE_DIS
+ (0 << 14)
+
+	)
+
+86 
+	#PRESCALE_EN
+ (1 << 14)
+
+	)
+
+87 
+	#PRSCVL
+(
+x
+Ë((xË<< 6)
+
+	)
+
+88 
+	#ADC_INPUT
+(
+x
+Ë((xË<< 3)
+
+	)
+
+89 
+	#ADC_START
+ (1 << 0)
+
+	)
+
+90 
+	#ADC_ENDCVT
+ (1 << 15)
+
+	)
+
+92 
+	#START_ADC_AIN
+(
+ch
+, 
+¥esˇÀ
+) \
+
+94 
+ADCCON
+ = 
+PRESCALE_EN
+ | 
+	`PRSCVL
+(
+¥esˇÀ
+Ë| 
+	`ADC_INPUT
+((
+ch
+)) ; \
+
+95 
+ADCCON
+ |
+ADC_START
+; \
+
+96 }0)
+
+	)
+
+100 
+MODULE_AUTHOR
+("Benny Cohen");
+
+101 
+MODULE_LICENSE
+("GPL");
+
+104 
+ssize_t
+ 
+	$show_func
+(
+devi˚
+ *
+dev
+, 
+devi˚_©åibuã
+ *
+©å
+, *
+buf
+)
+
+106 
+Àn
+;
+
+108 
+	`muãx_lock
+(&
+my_adc_lock
+);
+
+109 
+	`¥ötk
+("show_func() show func called:\n");
+
+110 
+Àn
+ = 
+	`¢¥ötf
+(
+buf
+, 
+PAGE_SIZE
+,
+
+115 
+vútuÆ_cou¡
+[0],
+
+116 
+vútuÆ_cou¡
+[1],
+
+117 
+vútuÆ_cou¡
+[2],
+
+118 
+vútuÆ_cou¡
+[3]);
+
+120 
+	`muãx_u∆ock
+(&
+my_adc_lock
+);
+
+121  
+Àn
+;
+
+122 
+	}
+}
+
+128 
+DEVICE_ATTR
+(
+fûe
+, 0666, 
+show_func
+ , 
+NULL
+ );
+
+131 
+úqªtu∫_t
+ 
+	$adcd⁄e_öt_h™dÀr
+(
+úq
+, *
+dev_id
+)
+
+133 
+Êags
+;
+
+134 
+	`•ö_lock_úqßve
+(&
+my_adc_•ölock
+, 
+Êags
+);
+
+135 i‡(
+OwnADC
+) {
+
+136 
+adc_d©a
+ = 
+ADCDAT0
+ & 0x3ff;
+
+138 
+ev_adc
+ = 1;
+
+139 
+	`wake_up_öãºu±ibÀ
+(&
+adcdev
+.
+waô
+);
+
+141 
+	`¥ötk
+–
+KERN_WARNING
+ "adcdone_int_handler() INTÅookÖlace\n");
+
+143 
+	`•ö_u∆ock_úqª°‹e
+(&
+my_adc_•ölock
+, 
+Êags
+);
+
+145  
+IRQ_HANDLED
+;
+
+146 
+	}
+}
+
+149 
+ssize_t
+ 
+	$s3c2410_adc_ªad
+(
+fûe
+ *
+fûp
+, *
+buf„r
+, 
+size_t
+ 
+cou¡
+, 
+loff_t
+ *
+µos
+)
+
+151 
+°r
+[20];
+
+152 
+vÆue
+;
+
+153 
+size_t
+ 
+Àn
+;
+
+154 
+ªt_vÆ
+;
+
+155 
+Êags
+;
+
+157 
+	`•ö_lock_úqßve
+(&
+my_adc_•ölock
+, 
+Êags
+);
+
+158 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_read() started\n");
+
+159 
+OwnADC
+ = 1;
+
+160 
+	`START_ADC_AIN
+(
+adcdev
+.
+ch™√l
+,ádcdev.
+¥esˇÀ
+);
+
+161 
+	`•ö_u∆ock_úqª°‹e
+(&
+my_adc_•ölock
+, 
+Êags
+);
+
+164 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_read() goingÅo sleep, waiting onÉvent\n");
+
+165 
+	`waô_evít_öãºu±ibÀ
+(
+adcdev
+.
+waô
+, 
+ev_adc
+);
+
+166 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_read() just woke up fromÉvent\n");
+
+169 
+	`•ö_lock_úqßve
+(&
+my_adc_•ölock
+, 
+Êags
+);
+
+170 
+ev_adc
+ = 0;
+
+171 
+vÆue
+ = 
+adc_d©a
+;
+
+172 
+OwnADC
+ = 0;
+
+173 
+	`•ö_u∆ock_úqª°‹e
+(&
+my_adc_•ölock
+, 
+Êags
+);
+
+177 
+	`muãx_lock
+(&
+my_adc_lock
+);
+
+178 
+	`¥ötk
+–
+KERN_WARNING
+ "AIN[%d] = 0x%04x, %d\n", 
+adcdev
+.
+ch™√l
+, 
+adc_d©a
+,
+ADCCON
+ & 0x80 ? 1:0);
+
+179 
+vútuÆ_cou¡
+[3] = virtual_count[2];
+
+180 
+vútuÆ_cou¡
+[2] = virtual_count[1];
+
+181 
+vútuÆ_cou¡
+[1] = virtual_count[0];
+
+182 
+vútuÆ_cou¡
+[0] = 
+vÆue
+;
+
+183 
+	`¥ötk
+–
+KERN_NOTICE
+ "s3c2410_adc_read() mutexÜocked\n");
+
+184 
+	`muãx_u∆ock
+(&
+my_adc_lock
+);
+
+187 
+Àn
+ = 
+	`•rötf
+(
+°r
+, "%d\n", 
+vÆue
+);
+
+188 i‡(
+cou¡
+ >
+Àn
+)
+
+190 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_read() gotÅheÑequired data, ...copyingÅo user mode\n");
+
+191 
+ªt_vÆ
+ = 
+	`c›y_to_u£r
+(
+buf„r
+, 
+°r
+, 
+Àn
+);
+
+192 if(
+ªt_vÆ
+==0)
+
+193  
+cou¡
+;
+
+195  -
+EFAULT
+;
+
+199 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_read() didnt getÅheÑequiredámount of data\n");
+
+200  -
+EINVAL
+;
+
+202 
+	}
+}
+
+209 
+	$s3c2410_adc_›í
+(
+öode
+ *öode, 
+fûe
+ *
+fûp
+)
+
+211 
+úq_ªt
+ = -1;
+
+213 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_open() started\n");
+
+215 
+	`muãx_lock
+(&
+my_adc_lock
+);
+
+216 i‡(!(
+úq_cou¡
+++ > 0))
+
+218 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_open()álloacting irq-request\n");
+
+219 
+úq_ªt
+ = 
+	`ªque°_úq
+(
+IRQ_ADC
+, 
+adcd⁄e_öt_h™dÀr
+, 
+IRQF_SHARED
+, 
+DEVICE_NAME
+, &
+adcdev
+);
+
+220 i‡(
+úq_ªt
+)
+
+222 
+	`iounm≠
+(
+ba£_addr
+);
+
+223 
+	`¥ötk
+–
+KERN_ERR
+ "Reque°ög IRQ f‹ ADC faûed irq_ªt=%d\n",
+úq_ªt
+);
+
+224  
+úq_ªt
+;
+
+227 
+	`muãx_u∆ock
+(&
+my_adc_lock
+);
+
+229 
+	`¥ötk
+–
+KERN_NOTICE
+ "s3c2410_adc_open() ADC opened\n");
+
+231 
+	}
+}
+
+233 
+	$s3c2410_adc_ªÀa£
+(
+öode
+ *öode, 
+fûe
+ *
+fûp
+)
+
+235 
+úq_ªt
+ = -1;
+
+237 
+	`muãx_lock
+(&
+my_adc_lock
+);
+
+238 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_release() started\n");
+
+239 i‡(!(--
+úq_cou¡
+ > 0))
+
+241 
+	`‰ì_úq
+(
+IRQ_ADC
+, &
+adcdev
+);
+
+242 
+úq_ªt
+=-1;
+
+243 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_release() irq-request de-allocated\n");
+
+245 
+	`¥ötk
+–
+KERN_WARNING
+ "s3c2410_adc_release()ádc closed\n");
+
+246 
+	`muãx_u∆ock
+(&
+my_adc_lock
+);
+
+248 
+	}
+}
+
+251 
+fûe_›î©i⁄s
+ 
+	gdev_f›s
+ = {
+
+252 
+ow√r
+: 
+THIS_MODULE
+,
+
+253 
+›í
+: 
+s3c2410_adc_›í
+,
+
+254 
+ªad
+: 
+s3c2410_adc_ªad
+,
+
+255 
+ªÀa£
+:
+s3c2410_adc_ªÀa£
+,
+
+261 
+	$£tup_cdev
+()
+
+263 
+îr
+, 
+devno
+ = 
+	`MKDEV
+(
+maj‹_num
+, 
+mö‹_num
+);
+
+265 
+	`cdev_öô
+(&
+cdev
+, &
+dev_f›s
+);
+
+266 
+cdev
+.
+ow√r
+ = 
+THIS_MODULE
+;
+
+267 
+cdev
+.
+›s
+ = &
+dev_f›s
+;
+
+268 
+îr
+ = 
+	`cdev_add
+ (&
+cdev
+, 
+devno
+, 1);
+
+270 i‡(
+îr
+)
+
+271 
+	`¥ötk
+(
+KERN_NOTICE
+ "Eº‹áddög ch¨ devi˚Éº=%d", 
+îr
+);
+
+272 
+	}
+}
+
+280 
+__öô
+ 
+	$dev_öô
+()
+
+282 
+dev_t
+ 
+devno
+ = 0;
+
+283 
+îr
+,
+ªtvÆ
+ = -1;
+
+287 
+	`¥ötk
+(
+KERN_NOTICE
+ "init_module(): dont haveá major soáskÅhe kernelÅoállocate one");
+
+288 
+ªtvÆ
+ = 
+	`Æloc_chrdev_ªgi⁄
+(&
+devno
+, 
+mö‹_num
+, 1,
+DEVICE_NAME
+);
+
+289 i‡(
+ªtvÆ
+ < 0)
+
+292 
+	`îr
+("öô_moduÀ(): REGISTRATION FAILURE %d\n", 
+maj‹_num
+);
+
+293 
+ªg_îr
+;
+
+296 
+maj‹_num
+ = 
+	`MAJOR
+(
+devno
+);
+
+297 
+	`¥ötk
+(
+KERN_NOTICE
+ "öô_moduÀ():Åhêkî√»gavêu†maj‹ = %d\n", 
+maj‹_num
+);
+
+303 
+ADC_˛ass
+ = 
+	`˛ass_¸óã
+(
+THIS_MODULE
+, 
+CLASS_NAME
+);
+
+304 i‡(
+	`IS_ERR
+(
+ADC_˛ass
+))
+
+306 
+	`îr
+("ÁûedÅÿªgi°î devi˚ cœs†'%s'\n", 
+CLASS_NAME
+);
+
+307 
+ªg_îr
+;
+
+310 
+devno
+ = 
+	`MKDEV
+(
+maj‹_num
+, 
+mö‹_num
+);
+
+317 
+⁄chù_A2D_devi˚
+ = 
+	`devi˚_¸óã
+(
+ADC_˛ass
+, 
+NULL
+, 
+devno
+, NULL, 
+CLASS_NAME
+ "_" 
+DEVICE_NAME
+);
+
+318 i‡(
+	`IS_ERR
+(
+⁄chù_A2D_devi˚
+))
+
+320 
+	`îr
+("ÁûedÅÿ¸óã devi˚ '%s_%s'\n", 
+CLASS_NAME
+, 
+DEVICE_NAME
+);
+
+321 
+˛ass_îr
+;
+
+324 
+ba£_addr
+=
+	`i‹em≠
+(
+S3C2410_PA_ADC
+,0x20);
+
+325 i‡(
+ba£_addr
+ =
+NULL
+) {
+
+326 
+	`¥ötk
+(
+KERN_ERR
+ "FailedÅoÑemapÑegister block\n");
+
+327  -
+ENOMEM
+;
+
+329 
+	`¥ötk
+(
+KERN_WARNING
+ "ª-m≠pögÑegi°î f‹ vútuÆ mem ba£_addr=%pk\n",
+ba£_addr
+);
+
+331 
+adc_˛ock
+ = 
+	`˛k_gë
+(
+NULL
+, "adc");
+
+332 i‡(!
+adc_˛ock
+) {
+
+333 
+	`¥ötk
+(
+KERN_ERR
+ "failedÅo getádc clock source\n");
+
+334  -
+ENOENT
+;
+
+338 
+	`muãx_öô
+(&
+my_adc_lock
+);
+
+340 
+	`˛k_íabÀ
+(
+adc_˛ock
+);
+
+343 
+ADCTSC
+ = 0;
+
+346 
+	`öô_waôqueue_hód
+(&(
+adcdev
+.
+waô
+));
+
+349 
+adcdev
+.
+ch™√l
+=0;
+
+350 
+adcdev
+.
+¥esˇÀ
+=0xff;
+
+353 
+	`£tup_cdev
+();
+
+356 
+îr
+ = 
+	`devi˚_¸óã_fûe
+(
+⁄chù_A2D_devi˚
+, &
+dev_©å_fûe
+);
+
+357 i‡(
+îr
+ < 0)
+
+359 
+	`¥ötk
+(
+KERN_WARNING
+ "failedÅo create write /sysÉndpoint - continuing without\n");
+
+362 
+	`¥ötk
+ (
+DEVICE_NAME
+"\tinitialized\n");
+
+366 
+˛ass_îr
+:
+
+367 
+	`˛ass_de°roy
+(
+ADC_˛ass
+);
+
+369 
+ªg_îr
+:
+
+370 
+	`uƒegi°î_chrdev
+(
+devno
+, 
+DEVICE_NAME
+);
+
+371  -
+EFAULT
+;
+
+372 
+	}
+}
+
+375 
+__exô
+ 
+	$dev_exô
+()
+
+377 
+dev_t
+ 
+devno
+ = 
+	`MKDEV
+(
+maj‹_num
+, 
+mö‹_num
+);
+
+379 
+	`iounm≠
+(
+ba£_addr
+);
+
+381 i‡(
+adc_˛ock
+) {
+
+382 
+	`˛k_dißbÀ
+(
+adc_˛ock
+);
+
+383 
+	`˛k_put
+(
+adc_˛ock
+);
+
+384 
+adc_˛ock
+ = 
+NULL
+;
+
+388 
+	`cdev_dñ
+(&
+cdev
+);
+
+390 
+	`devi˚_ªmove_fûe
+(
+⁄chù_A2D_devi˚
+, &
+dev_©å_fûe
+);
+
+391 
+	`devi˚_de°roy
+(
+ADC_˛ass
+, 
+devno
+);
+
+392 
+	`˛ass_de°roy
+(
+ADC_˛ass
+);
+
+395 
+	`uƒegi°î_chrdev_ªgi⁄
+(
+devno
+, 1);
+
+396 
+	`¥ötk
+(
+KERN_NOTICE
+ "char device unregistered");
+
+397 
+	`¥ötk
+(
+KERN_NOTICE
+ "char device module unloaded");
+
+399 
+	}
+}
+
+401 
+EXPORT_SYMBOL
+(
+my_adc_lock
+);
+
+402 
+moduÀ_öô
+(
+dev_öô
+);
+
+403 
+moduÀ_exô
+(
+dev_exô
+);
+
+404 
+MODULE_LICENSE
+("GPL");
+
+405 
+MODULE_AUTHOR
+("FriendlyARM Inc.");
+
+	@lesson-9.2/kernel_mode/s3c24xx-adc.h
+
+1 #i‚de‡
+_S3C2410_ADC_H_
+
+
+2 
+	#_S3C2410_ADC_H_
+
+
+	)
+
+4 #i‚de‡
+MAJOR_NUMBER
+
+
+5 
+	#MAJOR_NUMBER
+ 0
+
+	)
+
+8 
+	#ADC_WRITE
+(
+ch
+, 
+¥esˇÀ
+Ë((ch)<<16|’ªsˇÀ))
+
+	)
+
+10 
+	#ADC_WRITE_GETCH
+(
+d©a
+Ë(((d©a)>>16)&0x7)
+
+	)
+
+11 
+	#ADC_WRITE_GETPRE
+(
+d©a
+Ë((d©a)&0xff)
+
+	)
+
+13 
+__öô
+ 
+dev_öô
+();
+
+14 
+__exô
+ 
+dev_exô
+();
+
+15 
+s3c2410_adc_ªÀa£
+(
+öode
+ *öode, 
+fûe
+ *
+fûp
+);
+
+16 
+s3c2410_adc_›í
+(
+öode
+ *öode, 
+fûe
+ *
+fûp
+);
+
+17 
+ssize_t
+ 
+s3c2410_adc_ªad
+(
+fûe
+ *
+fûp
+, *
+buf„r
+, 
+size_t
+ 
+cou¡
+, 
+loff_t
+ *
+µos
+);
+
+18 
+£tup_cdev
+();
+
+	@lesson-9.2/user_mode/adc-test.c
+
+1 
+	~<°dio.h
+>
+
+2 
+	~<uni°d.h
+>
+
+3 
+	~<°dlib.h
+>
+
+4 
+	~<sys/ty≥s.h
+>
+
+5 
+	~<sys/°©.h
+>
+
+6 
+	~<sys/io˘l.h
+>
+
+7 
+	~<f˙é.h
+>
+
+8 
+	~<löux/fs.h
+>
+
+9 
+	~<î∫o.h
+>
+
+10 
+	~<°rög.h
+>
+
+12 
+	$maö
+()
+
+14 
+	`Ârötf
+(
+°dîr
+, "wait 10 seconds orÖress Ctrl-CÅo stop\n");
+
+15 
+fd
+ = 
+	`›í
+("/dev/ADC_onchip_A2D", 0);
+
+16 
+i
+;
+
+17 i‡(
+fd
+ < 0) {
+
+18 
+	`≥º‹
+("open ADC device:");
+
+22 
+i
+=0;i<10;i++)
+
+24 
+buf„r
+[30];
+
+25 
+Àn
+ = 
+	`ªad
+(
+fd
+, 
+buf„r
+, (buffer-1) );
+
+26 i‡(
+Àn
+ > 0)
+
+28 
+buf„r
+[
+Àn
+] = '\0';
+
+29 
+vÆue
+ = -1;
+
+30 
+	`ssˇnf
+(
+buf„r
+, "%d", &
+vÆue
+);
+
+31 
+	`¥ötf
+("ADC VÆue: %d\n", 
+vÆue
+);
+
+35 
+	`≥º‹
+("read ADC device:");
+
+38 
+	`u¶ìp
+(1000* 1000);
+
+43 
+	}
+}
+
+	@user_mode/adc-test.c
+
+1 
+	~<°dio.h
+>
+
+2 
+	~<uni°d.h
+>
+
+3 
+	~<°dlib.h
+>
+
+4 
+	~<sys/ty≥s.h
+>
+
+5 
+	~<sys/°©.h
+>
+
+6 
+	~<sys/io˘l.h
+>
+
+7 
+	~<f˙é.h
+>
+
+8 
+	~<löux/fs.h
+>
+
+9 
+	~<î∫o.h
+>
+
+10 
+	~<°rög.h
+>
+
+12 
+	$maö
+()
+
+14 
+	`Ârötf
+(
+°dîr
+, "wait 10 seconds orÖress Ctrl-CÅo stop\n");
+
+15 
+fd
+ = 
+	`›í
+("/dev/my_adc", 0);
+
+16 
+i
+=0;
+
+17 i‡(
+fd
+ < 0) {
+
+18 
+	`≥º‹
+("open ADC device:");
+
+22 
+i
+;i<10;i++)
+
+24 
+buf„r
+[30];
+
+25 
+Àn
+ = 
+	`ªad
+(
+fd
+, 
+buf„r
+, (buffer-1) );
+
+26 i‡(
+Àn
+ > 0)
+
+28 
+buf„r
+[
+Àn
+] = '\0';
+
+29 
+vÆue
+ = -1;
+
+30 
+	`ssˇnf
+(
+buf„r
+, "%d", &
+vÆue
+);
+
+31 
+	`¥ötf
+("ADC VÆue: %d\n", 
+vÆue
+);
+
+35 
+	`≥º‹
+("read ADC device:");
+
+38 
+	`u¶ìp
+(1000* 1000);
+
+41 
+	`˛o£
+(
+fd
+);
+
+42 
+	}
+}
+
+	@
+1
+.
+0
+8
+219
+kernel_mode/mini2440_adc.c
+kernel_mode/s3c24xx-adc.h
+lesson-4.1/hello.c
+lesson-4.2/hello.c
+lesson-9.2/kernel_mode/mini2440_adc.c
+lesson-9.2/kernel_mode/s3c24xx-adc.h
+lesson-9.2/user_mode/adc-test.c
+user_mode/adc-test.c
